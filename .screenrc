@@ -1,6 +1,9 @@
 # the following two lines give a two-line status, with the current window highlighted
+backtick 1 60 60 /bin/bash -c 'info=$(uptime | tr "," " " | cut -f4-6 -d" "); info="$info | $(uptime | tr "," " " | cut -f15- -d" ")"; echo $info'
+backtick 2 1 1   /bin/bash -c 'cpu=$(lscpu | egrep "CPU\(s\)" | sed -n "1p" | tr -s " " | cut -f2 -d":" | tr -d " "); echo $cpu'
+
 hardstatus alwayslastline
-hardstatus string '%{= kG}[%{G}%H%? %1`%?%{g}][%= %{= kw}%-w%{+b yk} %n*%t%?(%u)%? %{-}%+w %=%{g}][%{B}%m/%d %{W}%C%A%{g}]'
+hardstatus string '%{= kG}[%{G}%H|%S%? %? %{g}][%{y} %1` | %2`-vCPU %{g}][%= %{= kw}%-w%{+b yk} %n*%t%?(%u)%? %{-}%+w %=%{g}][%{B}%m/%d %{W}%c%{g}]'
 
 # huge scrollback buffer
 defscrollback 5000
@@ -17,10 +20,10 @@ defbce on
 mousetrack on
 
 # default windows
-screen -t Shell1  1 bash
-screen -t Shell2  2 bash
-screen -t Python  3 python3
-screen -t Media   4 bash
+screen -t Python  1 python3
+screen -t Shell1  2 -bash
+screen -t Shell2  3 -bash
+screen -t Shell3  4 -bash
 select 0
 bind c screen 1 # window numbering starts at 1 not 0
 bind 0 select 10
